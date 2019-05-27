@@ -7,10 +7,13 @@ import java.util.Objects;
 @Table(name = "hotel", schema = "hotels")
 public class HotelEntity {
     private int id;
-    private Integer ihNumber;
+    //    private Integer ihNumber;
     private String name;
     private String address;
     private String cap;
+
+    private CityEntity cityEntity;
+
 //    private Double latitude;
 //    private Double longitude;
 //    private String foPhone;
@@ -30,7 +33,7 @@ public class HotelEntity {
 //    private String b2CFlag;
 //    private String b2CSaleableFlag;
 //    private String b2CEditOkFlag;
-    private String b2CCallAssignedFlag;
+//    private String b2CCallAssignedFlag;
 //    private String bookOnLineFlag;
 //    private String onRequestFlag;
 
@@ -44,14 +47,14 @@ public class HotelEntity {
         this.id = id;
     }
 
-    @Column(name = "IHNumber", nullable = true)
-    public Integer getIhNumber() {
-        return ihNumber;
-    }
-
-    public void setIhNumber(Integer ihNumber) {
-        this.ihNumber = ihNumber;
-    }
+//    @Column(name = "IHNumber", nullable = true)
+//    public Integer getIhNumber() {
+//        return ihNumber;
+//    }
+//
+//    public void setIhNumber(Integer ihNumber) {
+//        this.ihNumber = ihNumber;
+//    }
 
     @Column(name = "Name", nullable = true, length = 255)
     public String getName() {
@@ -78,6 +81,16 @@ public class HotelEntity {
 
     public void setCap(String cap) {
         this.cap = cap;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "CityId")
+    public CityEntity getCityEntity() {
+        return cityEntity;
+    }
+
+    public void setCityEntity(CityEntity cityEntity) {
+        this.cityEntity = cityEntity;
     }
 
 //    @Column(name = "Latitude", nullable = true, precision = 0)
@@ -323,7 +336,6 @@ public class HotelEntity {
         if (o == null || getClass() != o.getClass()) return false;
         HotelEntity that = (HotelEntity) o;
         return id == that.id &&
-                Objects.equals(ihNumber, that.ihNumber) &&
                 Objects.equals(name, that.name) &&
                 Objects.equals(address, that.address) &&
                 Objects.equals(cap, that.cap);
@@ -331,7 +343,7 @@ public class HotelEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, ihNumber, name, address, cap);
+        return Objects.hash(id, name, address, cap);
     }
 
     @Override

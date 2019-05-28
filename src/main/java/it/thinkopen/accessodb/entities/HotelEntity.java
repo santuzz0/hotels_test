@@ -80,6 +80,18 @@ public class HotelEntity {
         this.cap = cap;
     }
 
+
+    private CityEntity cityEntity;
+
+    @ManyToOne
+    @JoinColumn(name = "CityId")
+    public CityEntity getCityEntity() {
+        return cityEntity;
+    }
+
+    public void setCityEntity(CityEntity cityEntity) {
+        this.cityEntity = cityEntity;
+    }
 //    @Column(name = "Latitude", nullable = true, precision = 0)
 //    public Double getLatitude() {
 //        return latitude;
@@ -317,4 +329,12 @@ public class HotelEntity {
 //        return Objects.hash(id, ihNumber, name, address, cap, latitude, longitude, foPhone, boPhone, fax, foMail, boMail, webSite, b2CContractFlag, b2CMailedFlag, b2COnLineFlag, b2CEditOk, b2CStoppedFlag, b2CStopDescr, taManagedFlag, taAssociatedFlag, b2CFlag, b2CSaleableFlag, b2CEditOkFlag, b2CCallAssignedFlag, bookOnLineFlag, onRequestFlag);
 //    }
 
+
+    @Override
+    public String toString() {
+        return "HotelEntity{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", cap='" + cap + '}';
+    }
 }

@@ -1,12 +1,12 @@
 package it.thinkopen.accessodb.controller;
 
 import it.thinkopen.accessodb.entity.HotelEntity;
+import it.thinkopen.accessodb.entity.SearchConditions;
 import it.thinkopen.accessodb.repository.CityRepository;
 import it.thinkopen.accessodb.repository.HotelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -38,6 +38,11 @@ public class HotelsController {
             hotels = hotels + hotelEntity.toString() + "<br>";
         }
         return hotels;
+    }
+
+    @RequestMapping(value = "/searchCondition", method = RequestMethod.POST)
+    public SearchConditions generateSearchCondition(@RequestBody SearchConditions searchConditions) {
+        return null;
     }
 
 }

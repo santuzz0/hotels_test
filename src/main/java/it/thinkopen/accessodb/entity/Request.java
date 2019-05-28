@@ -1,13 +1,13 @@
 package it.thinkopen.accessodb.entity;
 
-public class SearchConditions {
+public class Request {
     private Pagination pagination;
     private Filter[] filters;
 
-    public SearchConditions() {
+    public Request() {
     }
 
-    public SearchConditions(Pagination pagination, Filter[] filters) {
+    public Request(Pagination pagination, Filter[] filters) {
         this.pagination = pagination;
         this.filters = filters;
     }

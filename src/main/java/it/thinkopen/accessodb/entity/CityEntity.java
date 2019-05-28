@@ -1,25 +1,27 @@
 package it.thinkopen.accessodb.entity;
 
+import it.thinkopen.accessodb.LocalDBConf;
+import org.apache.tomcat.jni.Local;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "city", schema = "hotels")
+@Table(name = LocalDBConf.CITY_TABLE_NAME, schema = LocalDBConf.SCHEMA_NAME)
 public class CityEntity {
     private int id;
-    //    private String istatCode;
-//    private Double latitude;
-//    private Double longitude;
+    //private String istatCode;
+    //private Double latitude;
+    //private Double longitude;
     private String name;
+    private List<HotelEntity> hotelEntityList;
 
     @Id
     @Column(name = "Id", nullable = false)
     public int getId() {
         return id;
     }
-
-    private List<HotelEntity> hotelEntityList;
 
     public void setId(int id) {
         this.id = id;
@@ -52,7 +54,7 @@ public class CityEntity {
 //        this.longitude = longitude;
 //    }
 
-    @Column(name = "Name", nullable = true, length = 50)
+    @Column(name = "Name", length = 50)
     public String getName() {
         return name;
     }
@@ -70,22 +72,22 @@ public class CityEntity {
         this.hotelEntityList = hotelEntityList;
     }
 
-    //    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//        CityEntity that = (CityEntity) o;
-//        return id == that.id &&
-//                Objects.equals(istatCode, that.istatCode) &&
-//                Objects.equals(latitude, that.latitude) &&
-//                Objects.equals(longitude, that.longitude) &&
-//                Objects.equals(name, that.name);
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(id, istatCode, latitude, longitude, name);
-//    }
+    /*@Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CityEntity that = (CityEntity) o;
+        return id == that.id &&
+                Objects.equals(istatCode, that.istatCode) &&
+                Objects.equals(latitude, that.latitude) &&
+                Objects.equals(longitude, that.longitude) &&
+                Objects.equals(name, that.name);
+    }*/
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, /*istatCode, latitude, longitude,*/ name);
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -93,10 +95,5 @@ public class CityEntity {
         if (o == null || getClass() != o.getClass()) return false;
         CityEntity that = (CityEntity) o;
         return id == that.id && Objects.equals(name, that.name);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name);
     }
 }

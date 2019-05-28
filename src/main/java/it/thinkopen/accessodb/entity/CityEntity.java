@@ -1,5 +1,6 @@
 package it.thinkopen.accessodb.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import it.thinkopen.accessodb.LocalDBConf;
 import org.apache.tomcat.jni.Local;
 
@@ -63,6 +64,7 @@ public class CityEntity {
         this.name = name;
     }
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "cityEntity")
     public List<HotelEntity> getHotelEntityList() {
         return hotelEntityList;

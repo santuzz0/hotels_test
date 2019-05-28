@@ -1,5 +1,6 @@
 package it.thinkopen.accessodb.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import it.thinkopen.accessodb.LocalDBConf;
 
 import javax.persistence.*;
@@ -85,6 +86,7 @@ public class HotelEntity {
         this.cap = cap;
     }
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "CityId")
     public CityEntity getCityEntity() {

@@ -17,6 +17,6 @@ public interface HotelRepository extends JpaRepository<HotelEntity, Integer> {
 
     List<HotelEntity> getHotelEntityByCityEntity(CityEntity cityEntity);
 
-    Page<HotelEntity> getHotelEntityByCityEntity(CityEntity cityEntity, Pageable pageable);
+    Page<HotelEntity> getHotelEntitiesByCityEntity(CityEntity cityEntity, Pageable pageable);
 
 }

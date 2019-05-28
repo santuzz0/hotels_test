@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -49,17 +50,17 @@ public class HotelsController {
         String city = requestFilter.getValue();
 
         // Estraggo il numero di elementi che voglio per pagina
-        Integer maxElementiPageable = request.getPagination().getCurrentPage();
+        Integer maxElementiPageable = request.getPagination().getPerPage();
 
         // "Istanziamo l'oggetto" Pageable con i valore che mi sono stati passati in request
-        Pageable pagination = PageRequest.of(0, maxElementiPageable);
+        Pageable pagination = PageRequest.of(1, maxElementiPageable);
 
         // Estraggo il CityEntity attraverso la sua repository di riferimento
         CityEntity cityEntity = cityRepository.getCityEntityByName(city);
 
         // Estraggo la Page degli hotel che sono nella città specificata nella variabile
         // city e con le condizioni di paginazione specificate in pagination
-        Page<HotelEntity> hotelEntityPage = hotelRepository.getHotelEntityByCityEntity(cityEntity, pagination);
+        Page<HotelEntity> hotelEntityPage = hotelRepository.getHotelEntitiesByCityEntity(cityEntity, pagination);
 
         // Creiamo l'oggetto response che dovrà essere la risposta a fronte della request
         Response response = new Response();

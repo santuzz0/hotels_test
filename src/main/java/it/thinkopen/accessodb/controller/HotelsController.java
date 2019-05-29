@@ -3,12 +3,14 @@ package it.thinkopen.accessodb.controller;
 import it.thinkopen.accessodb.entity.*;
 import it.thinkopen.accessodb.repository.CityRepository;
 import it.thinkopen.accessodb.repository.HotelRepository;
+import it.thinkopen.accessodb.service.LookUpServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -19,6 +21,9 @@ public class HotelsController {
 
     @Autowired
     private CityRepository cityRepository;
+
+    @Autowired
+    private LookUpServiceImpl lookUpServiceImpl;
 
     @RequestMapping("/hotelsByCAP")
     public String getHotelsByCap(@RequestParam("cap") String cap) {
@@ -77,6 +82,25 @@ public class HotelsController {
         response.setMessage("");
 
         return response;
+    }
+
+    @RequestMapping(value = "/request2", method = RequestMethod.POST)
+    public Response request2(@RequestBody Request request) {
+        HashMap<String, String> filtersMap = toHasMap(request.getFilters());
+        Pagination pagination = request.getPagination();
+
+        lookUpServiceImpl.findHotelsEntityByCityName(pagination, filtersMap);
+
+
+        return null;
+    }
+
+    private HashMap<String, String> toHasMap(Filter[] filters) {
+        HashMap<String, String> filtersMap = new HashMap();
+        for (int i = 0; i < filters.length; i++) {
+            filtersMap.put(filters[i].getName(), filters[i].getValue());
+        }
+        return filtersMap;
     }
 
 }

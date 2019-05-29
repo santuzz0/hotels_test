@@ -2,7 +2,6 @@ package it.thinkopen.accessodb.Dao;
 
 import it.thinkopen.accessodb.entity.HotelEntity;
 import it.thinkopen.accessodb.entity.Pagination;
-import it.thinkopen.accessodb.entity.Response;
 import it.thinkopen.accessodb.entity.ResponseFromQuery;
 import org.springframework.stereotype.Component;
 
@@ -29,7 +28,8 @@ public class GenericDaoImpl implements GenericDao {
     }
 
     @Override
-    public Response findHotelsEntityByCityName(Pagination pagination, HashMap<String, String> filters) {
+    public ResponseFromQuery findHotelsEntityByCityName(Pagination pagination, HashMap<String, String> filters) {
+
         Query query = entityManager.createNativeQuery("SELECT * FROM hotel LIMIT 10", HotelEntity.class);
         List<HotelEntity> resultSet = (List<HotelEntity>)query.getResultList();
 
@@ -37,8 +37,11 @@ public class GenericDaoImpl implements GenericDao {
             System.out.println(hotelEntity);
         }
 
+        ResponseFromQuery responseFromQuery = new ResponseFromQuery();
 
-        return null;
+        responseFromQuery.setPage(resultSet);
+
+        return responseFromQuery;
     }
 
 }

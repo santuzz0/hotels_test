@@ -2,7 +2,7 @@ package it.thinkopen.accessodb.service;
 
 import it.thinkopen.accessodb.Dao.GenericDaoImpl;
 import it.thinkopen.accessodb.entity.Pagination;
-import it.thinkopen.accessodb.entity.Response;
+import it.thinkopen.accessodb.entity.ResponseFromQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +19,8 @@ public class LookUpServiceImpl implements LookUpService {
     }
 
     @Override
-    public Response findHotelsEntityByCityName(Pagination pagination, HashMap<String, String> filters) {
+    public ResponseFromQuery findHotelsEntityByCityName(Pagination pagination, HashMap<String, String> filters)
+    {
         return genericDaoImpl.findHotelsEntityByCityName(pagination, filters);
     }
 }

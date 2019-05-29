@@ -85,21 +85,24 @@ public class HotelsController {
     }
 
     @RequestMapping(value = "/request2", method = RequestMethod.POST)
-    public Response request2(@RequestBody Request request) {
+    public ResponseFromQuery request2(@RequestBody Request request)
+    {
         HashMap<String, String> filtersMap = toHasMap(request.getFilters());
+
         Pagination pagination = request.getPagination();
 
-        lookUpServiceImpl.findHotelsEntityByCityName(pagination, filtersMap);
-
-
-        return null;
+        return lookUpServiceImpl.findHotelsEntityByCityName(pagination, filtersMap);
     }
 
-    private HashMap<String, String> toHasMap(Filter[] filters) {
+    private HashMap<String, String> toHasMap(Filter[] filters)
+    {
         HashMap<String, String> filtersMap = new HashMap();
-        for (int i = 0; i < filters.length; i++) {
+
+        for (int i = 0; i < filters.length; i++)
+        {
             filtersMap.put(filters[i].getName(), filters[i].getValue());
         }
+
         return filtersMap;
     }
 

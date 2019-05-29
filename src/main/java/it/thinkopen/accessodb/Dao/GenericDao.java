@@ -1,12 +1,12 @@
 package it.thinkopen.accessodb.Dao;
 
-import it.thinkopen.accessodb.entity.Pagination;
-import it.thinkopen.accessodb.entity.Response;
+import it.thinkopen.accessodb.request_response.Pagination;
+import it.thinkopen.accessodb.request_response.ResponseFromQuery;
 
 import java.util.HashMap;
 
 public interface GenericDao {
 
-    Response findHotelsEntityByCityName(Pagination pagination, HashMap<String, String> filters);
+    ResponseFromQuery findHotelsEntityByCityNameSQL(Pagination pagination, HashMap<String, String> filters);
 
 }

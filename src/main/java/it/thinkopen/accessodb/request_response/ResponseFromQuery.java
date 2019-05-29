@@ -1,21 +1,23 @@
-package it.thinkopen.accessodb.entity;
+package it.thinkopen.accessodb.request_response;
 
-import org.springframework.data.domain.Page;
+import it.thinkopen.accessodb.entity.HotelEntity;
 
-public class Response {
+import java.util.List;
+
+public class ResponseFromQuery {
     private Pagination pagination;
     private Filter[] filters;
-    private Page<HotelEntity> page;
+    private List<HotelEntity> hotelsList;
     private String status;
     private String message;
 
-    public Response() {
+    public ResponseFromQuery() {
     }
 
-    public Response(Pagination pagination, Filter[] filters, Page<HotelEntity> page, String status, String message) {
+    public ResponseFromQuery(Pagination pagination, Filter[] filters, List<HotelEntity> hotelsList, String status, String message) {
         this.pagination = pagination;
         this.filters = filters;
-        this.page = page;
+        this.hotelsList = hotelsList;
         this.status = status;
         this.message = message;
     }
@@ -36,12 +38,12 @@ public class Response {
         this.filters = filters;
     }
 
-    public Page<HotelEntity> getPage() {
-        return page;
+    public List<HotelEntity> getHotelsList() {
+        return hotelsList;
     }
 
-    public void setPage(Page<HotelEntity> page) {
-        this.page = page;
+    public void setHotelsList(List<HotelEntity> hotelsList) {
+        this.hotelsList = hotelsList;
     }
 
     public String getStatus() {
@@ -59,5 +61,4 @@ public class Response {
     public void setMessage(String message) {
         this.message = message;
     }
-
 }

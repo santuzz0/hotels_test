@@ -3,6 +3,7 @@ package it.thinkopen.accessodb.controller;
 import it.thinkopen.accessodb.entity.*;
 import it.thinkopen.accessodb.repository.CityRepository;
 import it.thinkopen.accessodb.repository.HotelRepository;
+import it.thinkopen.accessodb.request_response.*;
 import it.thinkopen.accessodb.service.LookUpServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -85,14 +86,18 @@ public class HotelsController {
     }
 
     @RequestMapping(value = "/request2", method = RequestMethod.POST)
-    public Response request2(@RequestBody Request request) {
+    public ResponseFromQuery request2(@RequestBody Request request) {
         HashMap<String, String> filtersMap = toHasMap(request.getFilters());
         Pagination pagination = request.getPagination();
 
-        lookUpServiceImpl.findHotelsEntityByCityName(pagination, filtersMap);
+        ResponseFromQuery responseFromQuery = lookUpServiceImpl.findHotelsEntityByCityNameSQL(pagination, filtersMap);
 
+        responseFromQuery.setFilters(request.getFilters());
+        responseFromQuery.setPagination(request.getPagination());
+        responseFromQuery.setStatus("OK");
+        responseFromQuery.setMessage("");
 
-        return null;
+        return responseFromQuery;
     }
 
     private HashMap<String, String> toHasMap(Filter[] filters) {

@@ -1,4 +1,4 @@
-package it.thinkopen.accessodb.entity;
+package it.thinkopen.accessodb.request_response;
 
 public class Request {
     private Pagination pagination;

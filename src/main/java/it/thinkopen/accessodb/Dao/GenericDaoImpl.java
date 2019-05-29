@@ -37,6 +37,7 @@ public class GenericDaoImpl implements GenericDao {
             System.out.println(hotelEntity);
         }
 
+
         return null;
     }
 

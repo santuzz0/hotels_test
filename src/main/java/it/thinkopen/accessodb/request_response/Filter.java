@@ -1,9 +1,5 @@
 package it.thinkopen.accessodb.request_response;
 
-import org.springframework.stereotype.Component;
-
-import javax.persistence.Entity;
-
 public class Filter {
     private String name;
     private String value;

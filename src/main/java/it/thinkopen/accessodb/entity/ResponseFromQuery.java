@@ -1,5 +1,8 @@
 package it.thinkopen.accessodb.entity;
 
+import it.thinkopen.accessodb.request_response.Filter;
+import it.thinkopen.accessodb.request_response.Pagination;
+
 import java.util.List;
 
 public class ResponseFromQuery {

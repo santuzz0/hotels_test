@@ -27,9 +27,6 @@ public class HotelsController {
     @Autowired
     private LookUpServiceImpl lookUpServiceImpl;
 
-    @Autowired
-    private QueryBuilder queryBuilder;
-
     @RequestMapping("/hotelsByCAP")
     public String getHotelsByCap(@RequestParam("cap") String cap) {
         String hotels = "";
@@ -111,13 +108,4 @@ public class HotelsController {
         return filtersMap;
     }
 
-    @RequestMapping(value = "/request3", method = RequestMethod.POST)
-    public String request3(@RequestBody Request request)
-    {
-        HashMap<String, String> filtersMap = toHasMap(request.getFilters());
-
-        Pagination pagination = request.getPagination();
-
-        return queryBuilder.buildSelectQuery(pagination, filtersMap, LocalDBConf.HOTEL_TABLE_NAME);
-    }
 }

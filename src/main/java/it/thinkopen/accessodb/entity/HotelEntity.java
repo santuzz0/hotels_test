@@ -8,14 +8,12 @@ import java.util.Objects;
 
 @Entity
 @Table(name = LocalDBConf.HOTEL_TABLE_NAME, schema = LocalDBConf.SCHEMA_NAME)
-public class HotelEntity extends GenericEntity<Integer>
-{
+public class HotelEntity extends GenericEntity<Integer> {
     private Integer id;
     //private Integer ihNumber;
     private String name;
     private String address;
     private String cap;
-
     private CityEntity cityEntity;
 
 /*    private Double latitude;

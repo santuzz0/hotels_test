@@ -1,5 +1,6 @@
-package it.thinkopen.accessodb.entity;
+package it.thinkopen.accessodb.request_response;
 
+import it.thinkopen.accessodb.entity.HotelEntity;
 import org.springframework.data.domain.Page;
 
 public class Response {

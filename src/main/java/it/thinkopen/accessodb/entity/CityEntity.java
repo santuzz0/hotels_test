@@ -9,8 +9,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = LocalDBConf.CITY_TABLE_NAME, schema = LocalDBConf.SCHEMA_NAME)
-public class CityEntity extends GenericEntity<Integer>
-{
+public class CityEntity extends GenericEntity<Integer> {
     private Integer id;
     //private String istatCode;
     //private Double latitude;

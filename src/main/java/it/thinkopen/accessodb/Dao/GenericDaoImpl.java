@@ -1,12 +1,11 @@
 package it.thinkopen.accessodb.Dao;
 
 import it.thinkopen.accessodb.LocalDBConf;
+import it.thinkopen.accessodb.Utils.QueryBuilder;
 import it.thinkopen.accessodb.entity.GenericEntity;
-import it.thinkopen.accessodb.entity.Pagination;
-import it.thinkopen.accessodb.entity.ResponseFromQuery;
-import it.thinkopen.accessodb.exception.BusinessException;
-import it.thinkopen.accessodb.utils.QueryBuilder;
-import org.springframework.stereotype.Component;
+import it.thinkopen.accessodb.exceptions.BusinessException;
+import it.thinkopen.accessodb.request_response.Pagination;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -30,44 +29,27 @@ public class GenericDaoImpl implements GenericDao {
     public GenericDaoImpl() {
     }
 
-//    @Override
-//    public ResponseFromQuery findHotelsEntityByCityName(Pagination pagination, HashMap<String, String> filters) {
-//
-//        Query query = entityManager.createNativeQuery("SELECT * FROM hotel LIMIT 10", HotelEntity.class);
-//        List<HotelEntity> resultSet = (List<HotelEntity>)query.getResultList();
-//
-//        for(HotelEntity hotelEntity:resultSet) {
-//            System.out.println(hotelEntity);
-//        }
-//
-//        ResponseFromQuery responseFromQuery = new ResponseFromQuery();
-//
-//        responseFromQuery.setPage(resultSet);
-//
-//        return responseFromQuery;
-//    }
+    @Override
+    public List<GenericEntity> findHotelsEntityByCityNameSQL(Pagination pagination, HashMap<String, String> filters) throws BusinessException {
+        try {
+            Query query = QueryBuilder.buildSQLQuery("hotel", pagination, filters, entityManager);
+            List<GenericEntity> entityList = query.getResultList();
+            return entityList;
+        } catch (IllegalStateException ex) {
+            System.err.println(ex.getMessage());
+            throw new BusinessException("Errore: si sta facendo un UPDATE o DELETE anziché un SELECT");
+        }
+    }
 
     @Override
-    public ResponseFromQuery findHotelsEntityByCityName(Pagination pagination, HashMap<String, String> filters) throws BusinessException {
-        try
-        {
-            QueryBuilder queryBuilder = new QueryBuilder();
-
-            Query query = entityManager.createNativeQuery(queryBuilder.buildSelectQuery(pagination, filters, LocalDBConf.HOTEL_TABLE_NAME), GenericEntity.class);
-            List<GenericEntity> resultSet = (List<GenericEntity>)query.getResultList();
-
-            for(GenericEntity genericEntityEntity:resultSet) {
-                System.out.println(genericEntityEntity);
-            }
-
-            ResponseFromQuery responseFromQuery = new ResponseFromQuery();
-
-            responseFromQuery.setPage(resultSet);
-
-            return responseFromQuery;
-        } catch (Exception e)
-        {
-            throw new BusinessException("Errore");
+    public List<GenericEntity> findHotelsEntityByCityNameHQL(Pagination pagination, HashMap<String, String> filters) throws BusinessException {
+        try {
+            Query query = QueryBuilder.buildHQLQuery("HotelEntity", pagination, filters, entityManager);
+            List<GenericEntity> entityList = query.getResultList();
+            return entityList;
+        } catch (IllegalStateException ex) {
+            System.err.println(ex.getMessage());
+            throw new BusinessException("Errore: si sta facendo un UPDATE o DELETE anziché un SELECT");
         }
     }
 

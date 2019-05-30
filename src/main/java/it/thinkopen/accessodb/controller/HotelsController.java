@@ -1,9 +1,11 @@
 package it.thinkopen.accessodb.controller;
 
+import it.thinkopen.accessodb.LocalDBConf;
 import it.thinkopen.accessodb.entity.*;
 import it.thinkopen.accessodb.repository.CityRepository;
 import it.thinkopen.accessodb.repository.HotelRepository;
 import it.thinkopen.accessodb.service.LookUpServiceImpl;
+import it.thinkopen.accessodb.utils.QueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,6 +26,9 @@ public class HotelsController {
 
     @Autowired
     private LookUpServiceImpl lookUpServiceImpl;
+
+    @Autowired
+    private QueryBuilder queryBuilder;
 
     @RequestMapping("/hotelsByCAP")
     public String getHotelsByCap(@RequestParam("cap") String cap) {
@@ -106,4 +111,13 @@ public class HotelsController {
         return filtersMap;
     }
 
+    @RequestMapping(value = "/request3", method = RequestMethod.POST)
+    public String request3(@RequestBody Request request)
+    {
+        HashMap<String, String> filtersMap = toHasMap(request.getFilters());
+
+        Pagination pagination = request.getPagination();
+
+        return queryBuilder.buildSelectQuery(pagination, filtersMap, LocalDBConf.HOTEL_TABLE_NAME);
+    }
 }

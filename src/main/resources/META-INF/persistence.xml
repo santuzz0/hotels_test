@@ -4,7 +4,7 @@
     <persistence-unit name="NewPersistenceUnit">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <class>it.thinkopen.accessodb.entity.HotelEntity</class>
-        <class>it.thinkopen.accessodb.entity.City</class>
+        <class>it.thinkopen.accessodb.entity.CityEntity</class>
         <properties>
             <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/hotels?serverTimezone=UTC"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver"/>

@@ -1,7 +1,7 @@
 package it.thinkopen.accessodb.Dao;
 
 import it.thinkopen.accessodb.LocalDBConf;
-import it.thinkopen.accessodb.entity.HotelEntity;
+import it.thinkopen.accessodb.entity.GenericEntity;
 import it.thinkopen.accessodb.entity.Pagination;
 import it.thinkopen.accessodb.entity.ResponseFromQuery;
 import it.thinkopen.accessodb.utils.QueryBuilder;
@@ -50,11 +50,11 @@ public class GenericDaoImpl implements GenericDao {
     public ResponseFromQuery findHotelsEntityByCityName(Pagination pagination, HashMap<String, String> filters) {
         QueryBuilder queryBuilder = new QueryBuilder();
 
-        Query query = entityManager.createNativeQuery(queryBuilder.buildSelectQuery(pagination, filters, LocalDBConf.HOTEL_TABLE_NAME), HotelEntity.class);
-        List<HotelEntity> resultSet = (List<HotelEntity>)query.getResultList();
+        Query query = entityManager.createNativeQuery(queryBuilder.buildSelectQuery(pagination, filters, LocalDBConf.HOTEL_TABLE_NAME), GenericEntity.class);
+        List<GenericEntity> resultSet = (List<GenericEntity>)query.getResultList();
 
-        for(HotelEntity hotelEntity:resultSet) {
-            System.out.println(hotelEntity);
+        for(GenericEntity genericEntityEntity:resultSet) {
+            System.out.println(genericEntityEntity);
         }
 
         ResponseFromQuery responseFromQuery = new ResponseFromQuery();

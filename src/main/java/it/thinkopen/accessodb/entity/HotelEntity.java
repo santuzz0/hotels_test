@@ -8,8 +8,9 @@ import java.util.Objects;
 
 @Entity
 @Table(name = LocalDBConf.HOTEL_TABLE_NAME, schema = LocalDBConf.SCHEMA_NAME)
-public class HotelEntity {
-    private int id;
+public class HotelEntity extends GenericEntity<Integer>
+{
+    private Integer id;
     //private Integer ihNumber;
     private String name;
     private String address;
@@ -42,11 +43,12 @@ public class HotelEntity {
 
     @Id
     @Column(name = "Id", nullable = false)
-    public int getId() {
+    @Override
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

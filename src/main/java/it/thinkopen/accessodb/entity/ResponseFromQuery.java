@@ -5,14 +5,14 @@ import java.util.List;
 public class ResponseFromQuery {
     private Pagination pagination;
     private Filter[] filters;
-    private List<HotelEntity> page;
+    private List<GenericEntity> page;
     private String status;
     private String message;
 
     public ResponseFromQuery() {
     }
 
-    public ResponseFromQuery(Pagination pagination, Filter[] filters, List<HotelEntity> page, String status, String message) {
+    public ResponseFromQuery(Pagination pagination, Filter[] filters, List<GenericEntity> page, String status, String message) {
         this.pagination = pagination;
         this.filters = filters;
         this.page = page;
@@ -36,11 +36,11 @@ public class ResponseFromQuery {
         this.filters = filters;
     }
 
-    public List<HotelEntity> getPage() {
+    public List<GenericEntity> getPage() {
         return page;
     }
 
-    public void setPage(List<HotelEntity> page) {
+    public void setPage(List<GenericEntity> page) {
         this.page = page;
     }
 

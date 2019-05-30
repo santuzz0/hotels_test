@@ -1,23 +1,23 @@
 package it.thinkopen.accessodb.request_response;
 
-import it.thinkopen.accessodb.entity.HotelEntity;
+import it.thinkopen.accessodb.entity.GenericEntity;
 
 import java.util.List;
 
 public class ResponseFromQuery {
     private Pagination pagination;
     private Filter[] filters;
-    private List<HotelEntity> hotelsList;
+    private List<GenericEntity> entityList;
     private String status;
     private String message;
 
     public ResponseFromQuery() {
     }
 
-    public ResponseFromQuery(Pagination pagination, Filter[] filters, List<HotelEntity> hotelsList, String status, String message) {
+    public ResponseFromQuery(Pagination pagination, Filter[] filters, List<GenericEntity> entityList, String status, String message) {
         this.pagination = pagination;
         this.filters = filters;
-        this.hotelsList = hotelsList;
+        this.entityList = entityList;
         this.status = status;
         this.message = message;
     }
@@ -38,12 +38,12 @@ public class ResponseFromQuery {
         this.filters = filters;
     }
 
-    public List<HotelEntity> getHotelsList() {
-        return hotelsList;
+    public List<GenericEntity> getEntityList() {
+        return entityList;
     }
 
-    public void setHotelsList(List<HotelEntity> hotelsList) {
-        this.hotelsList = hotelsList;
+    public void setEntityList(List<GenericEntity> entityList) {
+        this.entityList = entityList;
     }
 
     public String getStatus() {

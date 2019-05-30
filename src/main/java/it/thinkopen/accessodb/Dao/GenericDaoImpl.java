@@ -1,9 +1,10 @@
 package it.thinkopen.accessodb.Dao;
 
+import it.thinkopen.accessodb.LocalDBConf;
 import it.thinkopen.accessodb.Utils.QueryBuilder;
-import it.thinkopen.accessodb.entity.HotelEntity;
+import it.thinkopen.accessodb.entity.GenericEntity;
+import it.thinkopen.accessodb.exceptions.BusinessException;
 import it.thinkopen.accessodb.request_response.Pagination;
-import it.thinkopen.accessodb.request_response.ResponseFromQuery;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -22,15 +23,26 @@ public class GenericDaoImpl implements GenericDao {
     }
 
     @Override
-    public ResponseFromQuery findHotelsEntityByCityNameSQL(Pagination pagination, HashMap<String, String> filters) {
-        String queryString = QueryBuilder.buildQuery("hotel", pagination, filters);
-        Query query = entityManager.createNativeQuery(queryString, HotelEntity.class);
-        List<HotelEntity> hotelEntityList = (List<HotelEntity>) query.getResultList();
-
-        ResponseFromQuery responseFromQuery = new ResponseFromQuery();
-        responseFromQuery.setHotelsList(hotelEntityList);
-
-        return responseFromQuery;
+    public List<GenericEntity> findHotelsEntityByCityNameSQL(Pagination pagination, HashMap<String, String> filters) throws BusinessException {
+        try {
+            Query query = QueryBuilder.buildSQLQuery("hotel", pagination, filters, entityManager);
+            List<GenericEntity> entityList = query.getResultList();
+            return entityList;
+        } catch (IllegalStateException ex) {
+            System.err.println(ex.getMessage());
+            throw new BusinessException("Errore: si sta facendo un UPDATE o DELETE anziché un SELECT");
+        }
     }
 
+    @Override
+    public List<GenericEntity> findHotelsEntityByCityNameHQL(Pagination pagination, HashMap<String, String> filters) throws BusinessException {
+        try {
+            Query query = QueryBuilder.buildHQLQuery("HotelEntity", pagination, filters, entityManager);
+            List<GenericEntity> entityList = query.getResultList();
+            return entityList;
+        } catch (IllegalStateException ex) {
+            System.err.println(ex.getMessage());
+            throw new BusinessException("Errore: si sta facendo un UPDATE o DELETE anziché un SELECT");
+        }
+    }
 }

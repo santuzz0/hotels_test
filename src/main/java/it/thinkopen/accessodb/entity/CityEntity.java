@@ -9,8 +9,8 @@ import java.util.Objects;
 
 @Entity
 @Table(name = LocalDBConf.CITY_TABLE_NAME, schema = LocalDBConf.SCHEMA_NAME)
-public class CityEntity extends GenericEntity {
-    private int id;
+public class CityEntity extends GenericEntity<Integer> {
+    private Integer id;
     //private String istatCode;
     //private Double latitude;
     //private Double longitude;
@@ -20,11 +20,11 @@ public class CityEntity extends GenericEntity {
     @Id
     @Column(name = "Id", nullable = false)
     @Override
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

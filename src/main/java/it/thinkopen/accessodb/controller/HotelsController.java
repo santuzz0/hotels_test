@@ -1,6 +1,9 @@
 package it.thinkopen.accessodb.controller;
 
-import it.thinkopen.accessodb.entity.*;
+import it.thinkopen.accessodb.entity.CityEntity;
+import it.thinkopen.accessodb.entity.GenericEntity;
+import it.thinkopen.accessodb.entity.HotelEntity;
+import it.thinkopen.accessodb.exceptions.BusinessException;
 import it.thinkopen.accessodb.repository.CityRepository;
 import it.thinkopen.accessodb.repository.HotelRepository;
 import it.thinkopen.accessodb.request_response.*;
@@ -85,23 +88,66 @@ public class HotelsController {
         return response;
     }
 
-    @RequestMapping(value = "/request2", method = RequestMethod.POST)
-    public ResponseFromQuery request2(@RequestBody Request request) {
-        HashMap<String, String> filtersMap = toHasMap(request.getFilters());
-        Pagination pagination = request.getPagination();
+    @RequestMapping(value = "/requestSQL", method = RequestMethod.POST)
+    public ResponseFromQuery requestSQL(@RequestBody Request request) {
+        ResponseFromQuery responseFromQuery = new ResponseFromQuery();
+        try {
+            HashMap<String, String> filtersMap = toHasMap(request.getFilters());
+            Pagination pagination = request.getPagination();
 
-        ResponseFromQuery responseFromQuery = lookUpServiceImpl.findHotelsEntityByCityNameSQL(pagination, filtersMap);
+            /*----------Parte sensibile alle eccezioni----------*/
+            List<GenericEntity> entityList = lookUpServiceImpl.findHotelsEntityByCityNameSQL(pagination, filtersMap);
+            /*--------------------------------------------------*/
 
-        responseFromQuery.setFilters(request.getFilters());
-        responseFromQuery.setPagination(request.getPagination());
-        responseFromQuery.setStatus("OK");
-        responseFromQuery.setMessage("");
+            responseFromQuery.setEntityList(entityList);
+            responseFromQuery.setFilters(request.getFilters());
+            responseFromQuery.setPagination(request.getPagination());
+            responseFromQuery.setStatus("OK");
+            responseFromQuery.setMessage("");
 
-        return responseFromQuery;
+            return responseFromQuery;
+        } catch (BusinessException ex) {
+            responseFromQuery.setEntityList(null);
+            responseFromQuery.setFilters(request.getFilters());
+            responseFromQuery.setPagination(request.getPagination());
+            responseFromQuery.setStatus("KO");
+            responseFromQuery.setMessage(ex.getMessage());
+
+            return responseFromQuery;
+        }
+    }
+
+    @RequestMapping(value = "/requestHQL", method = RequestMethod.POST)
+    public ResponseFromQuery requestHQL(@RequestBody Request request) {
+        ResponseFromQuery responseFromQuery = new ResponseFromQuery();
+        try {
+            HashMap<String, String> filtersMap = toHasMap(request.getFilters());
+            Pagination pagination = request.getPagination();
+
+            /*----------Parte sensibile alle eccezioni----------*/
+            List<GenericEntity> entityList = lookUpServiceImpl.findHotelsEntityByCityNameHQL(pagination, filtersMap);
+            /*--------------------------------------------------*/
+
+            responseFromQuery.setEntityList(entityList);
+            responseFromQuery.setFilters(request.getFilters());
+            responseFromQuery.setPagination(request.getPagination());
+            responseFromQuery.setStatus("OK");
+            responseFromQuery.setMessage("");
+
+            return responseFromQuery;
+        } catch (BusinessException ex) {
+            responseFromQuery.setEntityList(null);
+            responseFromQuery.setFilters(request.getFilters());
+            responseFromQuery.setPagination(request.getPagination());
+            responseFromQuery.setStatus("KO");
+            responseFromQuery.setMessage(ex.getMessage());
+
+            return responseFromQuery;
+        }
     }
 
     private HashMap<String, String> toHasMap(Filter[] filters) {
-        HashMap<String, String> filtersMap = new HashMap();
+        HashMap<String, String> filtersMap = new HashMap<String, String>();
         for (int i = 0; i < filters.length; i++) {
             filtersMap.put(filters[i].getName(), filters[i].getValue());
         }

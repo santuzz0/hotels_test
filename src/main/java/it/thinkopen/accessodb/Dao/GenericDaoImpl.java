@@ -4,6 +4,7 @@ import it.thinkopen.accessodb.LocalDBConf;
 import it.thinkopen.accessodb.entity.GenericEntity;
 import it.thinkopen.accessodb.entity.Pagination;
 import it.thinkopen.accessodb.entity.ResponseFromQuery;
+import it.thinkopen.accessodb.exception.BusinessException;
 import it.thinkopen.accessodb.utils.QueryBuilder;
 import org.springframework.stereotype.Component;
 
@@ -47,21 +48,27 @@ public class GenericDaoImpl implements GenericDao {
 //    }
 
     @Override
-    public ResponseFromQuery findHotelsEntityByCityName(Pagination pagination, HashMap<String, String> filters) {
-        QueryBuilder queryBuilder = new QueryBuilder();
+    public ResponseFromQuery findHotelsEntityByCityName(Pagination pagination, HashMap<String, String> filters) throws BusinessException {
+        try
+        {
+            QueryBuilder queryBuilder = new QueryBuilder();
 
-        Query query = entityManager.createNativeQuery(queryBuilder.buildSelectQuery(pagination, filters, LocalDBConf.HOTEL_TABLE_NAME), GenericEntity.class);
-        List<GenericEntity> resultSet = (List<GenericEntity>)query.getResultList();
+            Query query = entityManager.createNativeQuery(queryBuilder.buildSelectQuery(pagination, filters, LocalDBConf.HOTEL_TABLE_NAME), GenericEntity.class);
+            List<GenericEntity> resultSet = (List<GenericEntity>)query.getResultList();
 
-        for(GenericEntity genericEntityEntity:resultSet) {
-            System.out.println(genericEntityEntity);
+            for(GenericEntity genericEntityEntity:resultSet) {
+                System.out.println(genericEntityEntity);
+            }
+
+            ResponseFromQuery responseFromQuery = new ResponseFromQuery();
+
+            responseFromQuery.setPage(resultSet);
+
+            return responseFromQuery;
+        } catch (Exception e)
+        {
+            throw new BusinessException("Errore");
         }
-
-        ResponseFromQuery responseFromQuery = new ResponseFromQuery();
-
-        responseFromQuery.setPage(resultSet);
-
-        return responseFromQuery;
     }
 
 }

@@ -1,11 +1,10 @@
 package it.thinkopen.accessodb.controller;
 
-import it.thinkopen.accessodb.LocalDBConf;
 import it.thinkopen.accessodb.entity.*;
+import it.thinkopen.accessodb.exception.BusinessException;
 import it.thinkopen.accessodb.repository.CityRepository;
 import it.thinkopen.accessodb.repository.HotelRepository;
 import it.thinkopen.accessodb.service.LookUpServiceImpl;
-import it.thinkopen.accessodb.utils.QueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -87,8 +86,7 @@ public class HotelsController {
     }
 
     @RequestMapping(value = "/request2", method = RequestMethod.POST)
-    public ResponseFromQuery request2(@RequestBody Request request)
-    {
+    public ResponseFromQuery request2(@RequestBody Request request) throws BusinessException {
         HashMap<String, String> filtersMap = toHasMap(request.getFilters());
 
         Pagination pagination = request.getPagination();

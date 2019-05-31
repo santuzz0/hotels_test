@@ -17,7 +17,7 @@ import java.util.List;
 @Component
 public class GenericDaoImpl implements GenericDao {
 
-    final static Logger logger = Logger.getLogger(GenericDao.class);
+    private final static Logger logger = Logger.getLogger(GenericDao.class);
 
     @PersistenceContext
     private EntityManager entityManager;

@@ -5,7 +5,7 @@ import it.thinkopen.accessodb.request_response.Pagination;
 
 import java.util.List;
 
-public class ResponseFromQuery {
+class ResponseFromQuery {
     private Pagination pagination;
     private Filter[] filters;
     private List<GenericEntity> page;

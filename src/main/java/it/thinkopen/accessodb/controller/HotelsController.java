@@ -30,27 +30,27 @@ public class HotelsController {
     @Autowired
     private LookUpServiceImpl lookUpServiceImpl;
 
-    final static Logger logger = Logger.getLogger(HotelsController.class);
+    private final static Logger logger = Logger.getLogger(HotelsController.class);
 
     @RequestMapping("/hotelsByCAP")
     public String getHotelsByCap(@RequestParam("cap") String cap) {
-        String hotels = "";
+        StringBuilder hotels = new StringBuilder();
         List<HotelEntity> hotelEntityArrayList = hotelRepository.getHotelEntityByCap(cap);
         for (HotelEntity hotelEntity : hotelEntityArrayList) {
-            hotels = hotels + hotelEntity.toString() + "<br>";
+            hotels.append(hotelEntity.toString()).append("<br>");
         }
-        return hotels;
+        return hotels.toString();
     }
 
     @RequestMapping("/hotelsByCity")
     public String getHotelsByCity(@RequestParam("city") String city) {
-        String hotels = "";
+        StringBuilder hotels = new StringBuilder();
         List<HotelEntity> hotelEntityArrayList = hotelRepository.getHotelEntityByCityEntity(
                 cityRepository.getCityEntityByName(city));
         for (HotelEntity hotelEntity : hotelEntityArrayList) {
-            hotels = hotels + hotelEntity.toString() + "<br>";
+            hotels.append(hotelEntity.toString()).append("<br>");
         }
-        return hotels;
+        return hotels.toString();
     }
 
     @RequestMapping(value = "/request", method = RequestMethod.POST)
@@ -162,9 +162,9 @@ public class HotelsController {
     }
 
     private HashMap<String, String> toHasMap(Filter[] filters) {
-        HashMap<String, String> filtersMap = new HashMap<String, String>();
-        for (int i = 0; i < filters.length; i++) {
-            filtersMap.put(filters[i].getName(), filters[i].getValue());
+        HashMap<String, String> filtersMap = new HashMap<>();
+        for (Filter filter : filters) {
+            filtersMap.put(filter.getName(), filter.getValue());
         }
         return filtersMap;
     }

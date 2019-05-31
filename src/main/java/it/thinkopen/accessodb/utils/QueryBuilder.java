@@ -13,7 +13,7 @@ import java.util.Iterator;
 
 public final class QueryBuilder {
 
-    final static Logger logger = Logger.getLogger(QueryBuilder.class);
+    private final static Logger logger = Logger.getLogger(QueryBuilder.class);
 
     public static Query buildSQLQuery(String table, Pagination pagination, HashMap<String, String> filters, EntityManager entityManager) throws BusinessException {
         try {

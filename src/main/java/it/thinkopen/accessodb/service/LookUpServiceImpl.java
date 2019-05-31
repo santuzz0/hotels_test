@@ -13,7 +13,6 @@ import java.util.List;
 @Service
 public class LookUpServiceImpl implements LookUpService {
 
-
     @Autowired
     private GenericDaoImpl genericDaoImpl;
 

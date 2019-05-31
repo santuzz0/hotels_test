@@ -5,6 +5,7 @@ import it.thinkopen.accessodb.entity.GenericEntity;
 import it.thinkopen.accessodb.exceptions.BusinessException;
 import it.thinkopen.accessodb.request_response.Pagination;
 import it.thinkopen.accessodb.utils.QueryBuilder;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
@@ -16,6 +17,8 @@ import java.util.List;
 @Component
 public class GenericDaoImpl implements GenericDao {
 
+    final static Logger logger = Logger.getLogger(GenericDao.class);
+
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -25,8 +28,14 @@ public class GenericDaoImpl implements GenericDao {
     @Override
     public List<GenericEntity> findHotelsEntityByCityNameSQL(Pagination pagination, HashMap<String, String> filters) throws BusinessException {
         try {
+            logger.info("Generazione della query ...");
             Query query = QueryBuilder.buildSQLQuery("hotel", pagination, filters, entityManager);
+            logger.info("Query generata.");
+
+            logger.info("Esecuzione della query ...");
             List<GenericEntity> entityList = query.getResultList();
+            logger.info("Query eseguita.");
+
             return entityList;
         } catch (IllegalStateException ex) {
             System.err.println(ex.getMessage());
@@ -37,8 +46,14 @@ public class GenericDaoImpl implements GenericDao {
     @Override
     public List<GenericEntity> findHotelsEntityByCityNameHQL(Pagination pagination, HashMap<String, String> filters) throws BusinessException {
         try {
+            logger.info("Generazione della query ...");
             Query query = QueryBuilder.buildHQLQuery("HotelEntity", pagination, filters, entityManager);
+            logger.info("Query generata.");
+
+            logger.info("Esecuzione della query ...");
             List<GenericEntity> entityList = query.getResultList();
+            logger.info("Query eseguita.");
+
             return entityList;
         } catch (IllegalStateException ex) {
             System.err.println(ex.getMessage());

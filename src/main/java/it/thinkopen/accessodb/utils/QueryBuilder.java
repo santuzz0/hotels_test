@@ -4,6 +4,7 @@ import it.thinkopen.accessodb.config.ExceptionStringConf;
 import it.thinkopen.accessodb.entity.GenericEntity;
 import it.thinkopen.accessodb.exceptions.BusinessException;
 import it.thinkopen.accessodb.request_response.Pagination;
+import org.apache.log4j.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -11,6 +12,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 public final class QueryBuilder {
+
+    final static Logger logger = Logger.getLogger(QueryBuilder.class);
 
     public static Query buildSQLQuery(String table, Pagination pagination, HashMap<String, String> filters, EntityManager entityManager) throws BusinessException {
         try {
@@ -58,7 +61,7 @@ public final class QueryBuilder {
 
             Query query = entityManager.createNativeQuery(queryStringBuilder.toString());
 
-            System.out.println("SQL: " + queryStringBuilder.toString());
+            logger.info("SQL: " + queryStringBuilder.toString());
             return query;
         } catch (IllegalArgumentException ex) {
             System.err.println(ex.getMessage());
@@ -94,9 +97,10 @@ public final class QueryBuilder {
             query.setFirstResult((pagination.getCurrentPage() - 1) * pagination.getPerPage());
             query.setMaxResults(pagination.getPerPage());
 
-            System.out.println("HQL: " + queryStringBuilder.toString());
-            System.out.println("Posizione del primo elemento: " + (pagination.getCurrentPage() - 1) * pagination.getPerPage());
-            System.out.println("Numero massimo di elementi da recuperare: " + pagination.getPerPage());
+            logger.info("HQL: " + queryStringBuilder.toString());
+            logger.info("Posizione del primo elemento: " + (pagination.getCurrentPage() - 1) * pagination.getPerPage());
+            logger.info("Numero massimo di elementi da recuperare: " + pagination.getPerPage());
+
             return query;
         } catch (IllegalArgumentException ex) {
             System.err.println(ex.getMessage());

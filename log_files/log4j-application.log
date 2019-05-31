@@ -1,0 +1,12 @@
+2019-05-31 12:30:51 INFO  HotelsController:132 - ------------------------
+2019-05-31 12:30:51 INFO  HotelsController:133 - Richista ricevuta da /requestHQL
+2019-05-31 12:30:51 INFO  HotelsController:134 - Elaborazione in corso ...
+2019-05-31 12:30:51 INFO  GenericDao:49 - Generazione della query ...
+2019-05-31 12:30:51 INFO  QueryBuilder:100 - HQL: FROM HotelEntity WHERE Cap = :Cap
+2019-05-31 12:30:51 INFO  QueryBuilder:101 - Posizione del primo elemento: 0
+2019-05-31 12:30:51 INFO  QueryBuilder:102 - Numero massimo di elementi da recuperare: 10
+2019-05-31 12:30:51 INFO  GenericDao:51 - Query generata.
+2019-05-31 12:30:51 INFO  GenericDao:53 - Esecuzione della query ...
+2019-05-31 12:30:51 INFO  GenericDao:55 - Query eseguita.
+2019-05-31 12:30:51 INFO  HotelsController:149 - Elaborazione conclusa.
+2019-05-31 12:30:51 INFO  HotelsController:150 - ------------------------

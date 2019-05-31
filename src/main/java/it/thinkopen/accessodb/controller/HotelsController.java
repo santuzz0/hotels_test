@@ -8,6 +8,7 @@ import it.thinkopen.accessodb.repository.CityRepository;
 import it.thinkopen.accessodb.repository.HotelRepository;
 import it.thinkopen.accessodb.request_response.*;
 import it.thinkopen.accessodb.service.LookUpServiceImpl;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -28,6 +29,8 @@ public class HotelsController {
 
     @Autowired
     private LookUpServiceImpl lookUpServiceImpl;
+
+    final static Logger logger = Logger.getLogger(HotelsController.class);
 
     @RequestMapping("/hotelsByCAP")
     public String getHotelsByCap(@RequestParam("cap") String cap) {
@@ -90,6 +93,9 @@ public class HotelsController {
 
     @RequestMapping(value = "/requestSQL", method = RequestMethod.POST)
     public ResponseFromQuery requestSQL(@RequestBody Request request) {
+        logger.info("------------------------");
+        logger.info("Richista ricevuta da /requestSQL");
+        logger.info("Elaborazione in corso ...");
         ResponseFromQuery responseFromQuery = new ResponseFromQuery();
         try {
             HashMap<String, String> filtersMap = toHasMap(request.getFilters());
@@ -104,6 +110,8 @@ public class HotelsController {
             responseFromQuery.setPagination(request.getPagination());
             responseFromQuery.setStatus("OK");
             responseFromQuery.setMessage("");
+            logger.info("Elaborazione conclusa.");
+            logger.info("------------------------");
 
             return responseFromQuery;
         } catch (BusinessException ex) {
@@ -112,6 +120,8 @@ public class HotelsController {
             responseFromQuery.setPagination(request.getPagination());
             responseFromQuery.setStatus("KO");
             responseFromQuery.setMessage(ex.getMessage());
+            logger.error("Errore: " + ex.getMessage());
+            logger.info("------------------------");
 
             return responseFromQuery;
         }
@@ -119,6 +129,9 @@ public class HotelsController {
 
     @RequestMapping(value = "/requestHQL", method = RequestMethod.POST)
     public ResponseFromQuery requestHQL(@RequestBody Request request) {
+        logger.info("------------------------");
+        logger.info("Richista ricevuta da /requestHQL");
+        logger.info("Elaborazione in corso ...");
         ResponseFromQuery responseFromQuery = new ResponseFromQuery();
         try {
             HashMap<String, String> filtersMap = toHasMap(request.getFilters());
@@ -133,6 +146,8 @@ public class HotelsController {
             responseFromQuery.setPagination(request.getPagination());
             responseFromQuery.setStatus("OK");
             responseFromQuery.setMessage("");
+            logger.info("Elaborazione conclusa.");
+            logger.info("------------------------");
 
             return responseFromQuery;
         } catch (BusinessException ex) {
@@ -141,6 +156,8 @@ public class HotelsController {
             responseFromQuery.setPagination(request.getPagination());
             responseFromQuery.setStatus("KO");
             responseFromQuery.setMessage(ex.getMessage());
+            logger.error("Errore: " + ex.getMessage());
+            logger.info("------------------------");
 
             return responseFromQuery;
         }

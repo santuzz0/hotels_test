@@ -1,7 +1,7 @@
 package it.thinkopen.accessodb.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import it.thinkopen.accessodb.LocalDBConf;
+import it.thinkopen.accessodb.config.LocalDBConf;
 
 import javax.persistence.*;
 import java.util.List;

@@ -1,4 +1,4 @@
-package it.thinkopen.accessodb;
+package it.thinkopen.accessodb.config;
 
 public class LocalDBConf {
 

@@ -1,5 +1,6 @@
 package it.thinkopen.accessodb.utils;
 
+import it.thinkopen.accessodb.config.ExceptionStringConf;
 import it.thinkopen.accessodb.entity.GenericEntity;
 import it.thinkopen.accessodb.exceptions.BusinessException;
 import it.thinkopen.accessodb.request_response.Pagination;
@@ -61,7 +62,7 @@ public final class QueryBuilder {
             return query;
         } catch (IllegalArgumentException ex) {
             System.err.println(ex.getMessage());
-            throw new BusinessException("Errore: stringa che compone la query invalida.");
+            throw new BusinessException(ExceptionStringConf.ERROR1);
         }
     }
 
@@ -99,7 +100,7 @@ public final class QueryBuilder {
             return query;
         } catch (IllegalArgumentException ex) {
             System.err.println(ex.getMessage());
-            throw new BusinessException("Errore: stringa che compone la query invalida.");
+            throw new BusinessException(ExceptionStringConf.ERROR1);
         }
     }
 

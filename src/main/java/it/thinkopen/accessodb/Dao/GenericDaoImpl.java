@@ -1,5 +1,6 @@
 package it.thinkopen.accessodb.Dao;
 
+import it.thinkopen.accessodb.config.ExceptionStringConf;
 import it.thinkopen.accessodb.entity.GenericEntity;
 import it.thinkopen.accessodb.exceptions.BusinessException;
 import it.thinkopen.accessodb.request_response.Pagination;
@@ -29,7 +30,7 @@ public class GenericDaoImpl implements GenericDao {
             return entityList;
         } catch (IllegalStateException ex) {
             System.err.println(ex.getMessage());
-            throw new BusinessException("Errore: si sta facendo un UPDATE o DELETE anziché un SELECT");
+            throw new BusinessException(ExceptionStringConf.ERROR2);
         }
     }
 
@@ -41,7 +42,7 @@ public class GenericDaoImpl implements GenericDao {
             return entityList;
         } catch (IllegalStateException ex) {
             System.err.println(ex.getMessage());
-            throw new BusinessException("Errore: si sta facendo un UPDATE o DELETE anziché un SELECT");
+            throw new BusinessException(ExceptionStringConf.ERROR2);
         }
     }
 

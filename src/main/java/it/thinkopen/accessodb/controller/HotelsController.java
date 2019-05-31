@@ -96,7 +96,6 @@ public class HotelsController {
         logger.info("------------------------");
         logger.info("Richista ricevuta da /requestSQL");
         logger.info("Elaborazione in corso ...");
-        ResponseFromQuery responseFromQuery = new ResponseFromQuery();
         try {
             HashMap<String, String> filtersMap = toHasMap(request.getFilters());
             Pagination pagination = request.getPagination();
@@ -105,21 +104,15 @@ public class HotelsController {
             List<GenericEntity> entityList = lookUpServiceImpl.findHotelsEntityByCityNameSQL(pagination, filtersMap);
             /*--------------------------------------------------*/
 
-            responseFromQuery.setEntityList(entityList);
-            responseFromQuery.setFilters(request.getFilters());
-            responseFromQuery.setPagination(request.getPagination());
-            responseFromQuery.setStatus("OK");
-            responseFromQuery.setMessage("");
+            ResponseFromQuery responseFromQuery = buildResponse(entityList, request.getFilters(),
+                    request.getPagination(), "OK", "");
             logger.info("Elaborazione conclusa.");
             logger.info("------------------------");
 
             return responseFromQuery;
         } catch (BusinessException ex) {
-            responseFromQuery.setEntityList(null);
-            responseFromQuery.setFilters(request.getFilters());
-            responseFromQuery.setPagination(request.getPagination());
-            responseFromQuery.setStatus("KO");
-            responseFromQuery.setMessage(ex.getMessage());
+            ResponseFromQuery responseFromQuery = buildResponse(null, request.getFilters(),
+                    request.getPagination(), "KO", ex.getMessage());
             logger.error("Errore: " + ex.getMessage());
             logger.info("------------------------");
 
@@ -127,12 +120,23 @@ public class HotelsController {
         }
     }
 
+    private ResponseFromQuery buildResponse(List<GenericEntity> entityList, Filter[] filters, Pagination pagination, String status, String message) {
+        ResponseFromQuery responseFromQuery = new ResponseFromQuery();
+
+        responseFromQuery.setEntityList(entityList);
+        responseFromQuery.setFilters(filters);
+        responseFromQuery.setPagination(pagination);
+        responseFromQuery.setStatus(status);
+        responseFromQuery.setMessage(message);
+
+        return responseFromQuery;
+    }
+
     @RequestMapping(value = "/requestHQL", method = RequestMethod.POST)
     public ResponseFromQuery requestHQL(@RequestBody Request request) {
         logger.info("------------------------");
         logger.info("Richista ricevuta da /requestHQL");
         logger.info("Elaborazione in corso ...");
-        ResponseFromQuery responseFromQuery = new ResponseFromQuery();
         try {
             HashMap<String, String> filtersMap = toHasMap(request.getFilters());
             Pagination pagination = request.getPagination();
@@ -141,21 +145,15 @@ public class HotelsController {
             List<GenericEntity> entityList = lookUpServiceImpl.findHotelsEntityByCityNameHQL(pagination, filtersMap);
             /*--------------------------------------------------*/
 
-            responseFromQuery.setEntityList(entityList);
-            responseFromQuery.setFilters(request.getFilters());
-            responseFromQuery.setPagination(request.getPagination());
-            responseFromQuery.setStatus("OK");
-            responseFromQuery.setMessage("");
+            ResponseFromQuery responseFromQuery = buildResponse(entityList, request.getFilters(),
+                    request.getPagination(), "OK", "");
             logger.info("Elaborazione conclusa.");
             logger.info("------------------------");
 
             return responseFromQuery;
         } catch (BusinessException ex) {
-            responseFromQuery.setEntityList(null);
-            responseFromQuery.setFilters(request.getFilters());
-            responseFromQuery.setPagination(request.getPagination());
-            responseFromQuery.setStatus("KO");
-            responseFromQuery.setMessage(ex.getMessage());
+            ResponseFromQuery responseFromQuery = buildResponse(null, request.getFilters(),
+                    request.getPagination(), "KO", ex.getMessage());
             logger.error("Errore: " + ex.getMessage());
             logger.info("------------------------");
 

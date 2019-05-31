@@ -30,3 +30,5 @@ HELP.md
 
 ### Properties ###
 application.properties
+log4j.properties
+myProperties.properties

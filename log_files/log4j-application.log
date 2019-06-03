@@ -46,3 +46,49 @@
 2019-05-31 12:56:16 INFO  GenericDao:55 - Query eseguita.
 2019-05-31 12:56:16 INFO  HotelsController:150 - Elaborazione conclusa.
 2019-05-31 12:56:16 INFO  HotelsController:151 - ------------------------
+2019-05-31 14:30:59 INFO  HotelsController:137 - ------------------------
+2019-05-31 14:30:59 INFO  HotelsController:138 - Richista ricevuta da /requestHQL
+2019-05-31 14:30:59 INFO  HotelsController:139 - Elaborazione in corso ...
+2019-05-31 14:30:59 INFO  GenericDao:49 - Generazione della query ...
+2019-05-31 14:30:59 INFO  QueryBuilder:100 - HQL: FROM HotelEntity WHERE Cap = :Cap
+2019-05-31 14:30:59 INFO  QueryBuilder:101 - Posizione del primo elemento: 0
+2019-05-31 14:30:59 INFO  QueryBuilder:102 - Numero massimo di elementi da recuperare: 10
+2019-05-31 14:30:59 INFO  GenericDao:51 - Query generata.
+2019-05-31 14:30:59 INFO  GenericDao:53 - Esecuzione della query ...
+2019-05-31 14:30:59 INFO  GenericDao:55 - Query eseguita.
+2019-05-31 14:30:59 INFO  HotelsController:150 - Elaborazione conclusa.
+2019-05-31 14:30:59 INFO  HotelsController:151 - ------------------------
+2019-05-31 14:31:07 INFO  HotelsController:96 - ------------------------
+2019-05-31 14:31:07 INFO  HotelsController:97 - Richista ricevuta da /requestSQL
+2019-05-31 14:31:07 INFO  HotelsController:98 - Elaborazione in corso ...
+2019-05-31 14:31:07 INFO  GenericDao:31 - Generazione della query ...
+2019-05-31 14:31:07 INFO  QueryBuilder:64 - SQL: SELECT * FROM hotel WHERE Cap = '67100'  LIMIT 10 OFFSET 0
+2019-05-31 14:31:07 INFO  GenericDao:33 - Query generata.
+2019-05-31 14:31:07 INFO  GenericDao:35 - Esecuzione della query ...
+2019-05-31 14:31:07 INFO  GenericDao:37 - Query eseguita.
+2019-05-31 14:31:07 INFO  HotelsController:109 - Elaborazione conclusa.
+2019-05-31 14:31:07 INFO  HotelsController:110 - ------------------------
+2019-05-31 14:31:15 INFO  HotelsController:137 - ------------------------
+2019-05-31 14:31:15 INFO  HotelsController:138 - Richista ricevuta da /requestHQL
+2019-05-31 14:31:15 INFO  HotelsController:139 - Elaborazione in corso ...
+2019-05-31 14:31:15 INFO  GenericDao:49 - Generazione della query ...
+2019-05-31 14:31:15 INFO  QueryBuilder:100 - HQL: FROM HotelEntity WHERE Cap = :Cap
+2019-05-31 14:31:15 INFO  QueryBuilder:101 - Posizione del primo elemento: 0
+2019-05-31 14:31:15 INFO  QueryBuilder:102 - Numero massimo di elementi da recuperare: 10
+2019-05-31 14:31:15 INFO  GenericDao:51 - Query generata.
+2019-05-31 14:31:15 INFO  GenericDao:53 - Esecuzione della query ...
+2019-05-31 14:31:15 INFO  GenericDao:55 - Query eseguita.
+2019-05-31 14:31:15 INFO  HotelsController:150 - Elaborazione conclusa.
+2019-05-31 14:31:15 INFO  HotelsController:151 - ------------------------
+2019-06-03 11:14:23 INFO  HotelsController:127 - ------------------------
+2019-06-03 11:14:24 INFO  HotelsController:128 - Richista ricevuta da /requestHQL
+2019-06-03 11:14:24 INFO  HotelsController:129 - Elaborazione in corso ...
+2019-06-03 11:14:24 INFO  GenericDao:49 - Generazione della query ...
+2019-06-03 11:14:24 ERROR HotelsController:178 - Errore: Errore: stringa che compone la query invalida.
+2019-06-03 11:14:24 INFO  HotelsController:179 - ------------------------
+2019-06-03 11:37:20 INFO  HotelsController:127 - ------------------------
+2019-06-03 11:37:20 INFO  HotelsController:128 - Richista ricevuta da /requestHQL
+2019-06-03 11:37:20 INFO  HotelsController:129 - Elaborazione in corso ...
+2019-06-03 11:37:20 INFO  GenericDao:49 - Generazione della query ...
+2019-06-03 11:37:20 ERROR BusinessExceptionHandler:29 - Errore: Errore: stringa che compone la query invalida.
+2019-06-03 11:37:20 INFO  BusinessExceptionHandler:30 - ------------------------

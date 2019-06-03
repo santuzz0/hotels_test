@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -92,32 +94,71 @@ public class HotelsController {
     }
 
     @RequestMapping(value = "/requestSQL", method = RequestMethod.POST)
-    public ResponseFromQuery requestSQL(@RequestBody Request request) {
+    public ResponseFromQuery requestSQL(@RequestBody Request request) throws BusinessException {
         logger.info("------------------------");
         logger.info("Richista ricevuta da /requestSQL");
         logger.info("Elaborazione in corso ...");
-        try {
-            HashMap<String, String> filtersMap = toHasMap(request.getFilters());
-            Pagination pagination = request.getPagination();
+//        try {
+        HashMap<String, String> filtersMap = toHasMap(request.getFilters());
+        Pagination pagination = request.getPagination();
 
-            /*----------Parte sensibile alle eccezioni----------*/
-            List<GenericEntity> entityList = lookUpServiceImpl.findHotelsEntityByCityNameSQL(pagination, filtersMap);
-            /*--------------------------------------------------*/
+        /*----------Parte sensibile alle eccezioni----------*/
+        List<GenericEntity> entityList = lookUpServiceImpl.findHotelsEntityByCityNameSQL(pagination, filtersMap);
+        /*--------------------------------------------------*/
 
-            ResponseFromQuery responseFromQuery = buildResponse(entityList, request.getFilters(),
-                    request.getPagination(), "OK", "");
-            logger.info("Elaborazione conclusa.");
-            logger.info("------------------------");
+        ResponseFromQuery responseFromQuery = buildResponse(entityList, request.getFilters(),
+                request.getPagination(), "OK", "");
+        logger.info("Elaborazione conclusa.");
+        logger.info("------------------------");
 
-            return responseFromQuery;
-        } catch (BusinessException ex) {
-            ResponseFromQuery responseFromQuery = buildResponse(null, request.getFilters(),
-                    request.getPagination(), "KO", ex.getMessage());
-            logger.error("Errore: " + ex.getMessage());
-            logger.info("------------------------");
+        return responseFromQuery;
+//        } catch (BusinessException ex) {
+//            ResponseFromQuery responseFromQuery = buildResponse(null, request.getFilters(),
+//                    request.getPagination(), "KO", ex.getMessage());
+//            logger.error("Errore: " + ex.getMessage());
+//            logger.info("------------------------");
+//
+//            return responseFromQuery;
+//        }
+    }
 
-            return responseFromQuery;
+    @RequestMapping(value = "/requestHQL", method = RequestMethod.POST)
+    public ResponseFromQuery requestHQL(@RequestBody Request request) throws BusinessException {
+        logger.info("------------------------");
+        logger.info("Richista ricevuta da /requestHQL");
+        logger.info("Elaborazione in corso ...");
+//        try {
+        HashMap<String, String> filtersMap = toHasMap(request.getFilters());
+        Pagination pagination = request.getPagination();
+
+        /*----------Parte sensibile alle eccezioni----------*/
+        List<GenericEntity> entityList = lookUpServiceImpl.findHotelsEntityByCityNameHQL(pagination, filtersMap);
+        /*--------------------------------------------------*/
+
+        ResponseFromQuery responseFromQuery = buildResponse(entityList, request.getFilters(),
+                request.getPagination(), "OK", "");
+        logger.info("Elaborazione conclusa.");
+        logger.info("------------------------");
+
+        return responseFromQuery;
+//        } catch (BusinessException ex) {
+//
+//            handleBusinessException(ex);
+//
+//            ResponseFromQuery responseFromQuery = buildResponse(null, request.getFilters(),
+//                    request.getPagination(), "KO", ex.getMessage());
+//
+//
+//            return responseFromQuery;
+//        }
+    }
+
+    private HashMap<String, String> toHasMap(Filter[] filters) {
+        HashMap<String, String> filtersMap = new HashMap<>();
+        for (Filter filter : filters) {
+            filtersMap.put(filter.getName(), filter.getValue());
         }
+        return filtersMap;
     }
 
     private ResponseFromQuery buildResponse(List<GenericEntity> entityList, Filter[] filters, Pagination pagination, String status, String message) {
@@ -130,43 +171,6 @@ public class HotelsController {
         responseFromQuery.setMessage(message);
 
         return responseFromQuery;
-    }
-
-    @RequestMapping(value = "/requestHQL", method = RequestMethod.POST)
-    public ResponseFromQuery requestHQL(@RequestBody Request request) {
-        logger.info("------------------------");
-        logger.info("Richista ricevuta da /requestHQL");
-        logger.info("Elaborazione in corso ...");
-        try {
-            HashMap<String, String> filtersMap = toHasMap(request.getFilters());
-            Pagination pagination = request.getPagination();
-
-            /*----------Parte sensibile alle eccezioni----------*/
-            List<GenericEntity> entityList = lookUpServiceImpl.findHotelsEntityByCityNameHQL(pagination, filtersMap);
-            /*--------------------------------------------------*/
-
-            ResponseFromQuery responseFromQuery = buildResponse(entityList, request.getFilters(),
-                    request.getPagination(), "OK", "");
-            logger.info("Elaborazione conclusa.");
-            logger.info("------------------------");
-
-            return responseFromQuery;
-        } catch (BusinessException ex) {
-            ResponseFromQuery responseFromQuery = buildResponse(null, request.getFilters(),
-                    request.getPagination(), "KO", ex.getMessage());
-            logger.error("Errore: " + ex.getMessage());
-            logger.info("------------------------");
-
-            return responseFromQuery;
-        }
-    }
-
-    private HashMap<String, String> toHasMap(Filter[] filters) {
-        HashMap<String, String> filtersMap = new HashMap<>();
-        for (Filter filter : filters) {
-            filtersMap.put(filter.getName(), filter.getValue());
-        }
-        return filtersMap;
     }
 
 }
